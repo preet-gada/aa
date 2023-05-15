@@ -1,0 +1,58 @@
+import java.util.*;
+public class Main
+{
+  static int x = 0;
+  public static int partition (int arr[], int low, int high)
+  {
+    int pivot = arr[high];
+    int i = (low - 1);
+    for (int j = low; j < high; j++)
+      {
+	if (arr[j] <= pivot)
+	  {
+	    i++;
+	    int temp = arr[i];
+	      arr[i] = arr[j];
+	      arr[j] = temp;
+	      x++;
+	  }
+      }
+    int temp = arr[i + 1];
+    arr[i + 1] = arr[high];
+    arr[high] = temp;
+    return i + 1;
+  }
+  public static void sort (int arr[], int low, int high)
+  {
+    if (low < high)
+      {
+	int p = partition (arr, low, high);
+	sort (arr, low, p - 1);
+	sort (arr, p + 1, high);
+      }
+  }
+  public static void rsort (int arr[], int low, int high)
+  {
+    if (low < high)
+      {
+	int index = new Random ().nextInt (arr.length);
+	int temp1 = arr[high];
+	arr[high] = arr[index];
+	arr[index] = temp1;
+	int pi = partition (arr, low, high);
+	rsort (arr, low, pi - 1);
+	rsort (arr, pi + 1, high);
+      }
+  }
+  public static void main (String args[])
+  {
+    int arr[] = { 1, 2, 3, 4, 5 };
+    int n = arr.length;
+    sort (arr, 0, n - 1);
+    System.out.println (x);
+    int arr1[] = { 1, 2, 3, 4, 5 };
+    x = 0;
+    rsort (arr1, 0, n - 1);
+    System.out.println (x);
+  }
+}
